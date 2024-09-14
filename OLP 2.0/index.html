@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OLP</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        .btn-clear {
+            background-color: white;
+            color: black;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .selected {
+            border-bottom: 2px solid orangered;
+        }
+
+        .logo {
+            width: 50px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            z-index: 99999;
+            background-color: white;
+            border-bottom: 1px solid rgb(174, 174, 174);
+        }
+
+        p {
+            margin: 0;
+        }
+
+        .product-tab {
+            background-color: rgb(235, 235, 235);
+            margin: 1em;
+            color: black;
+            overflow: auto;
+            padding: 30px;
+        }
+
+        .most-relevant-text {
+            text-transform: uppercase;
+            font-weight: 600;
+            color: rgb(107, 107, 107);
+            font-size: 12px;
+        }
+
+        input {
+            border: hidden;
+            border: 1px solid rgb(141, 141, 141);
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        .sub-navbar input {
+            width: 30%;
+        }
+
+        .topics {
+            cursor: pointer;
+        }
+
+        .topics h5:hover {
+            color: rgb(114, 114, 114);
+            border-bottom: 1px solid rgb(158, 158, 158);
+        }
+
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .products div {
+            margin-top: .8em;
+            margin-left: .8em;
+        }
+
+        button {
+            border-radius: 7px;
+            margin-top: 1em;
+            margin: .8em;
+            background-color: black;
+            color: white;
+        }
+
+        .menu-left {
+            .section {
+                border-bottom: 1px solid rgb(158, 158, 158);
+            }
+
+            p {
+                margin-bottom: 1em;
+                font-size: 12px;
+                font-weight: 700;
+            }
+
+            .input-text {
+                margin-bottom: 1em;
+                width: 100%;
+                max-width: 250px;
+            }
+
+            h5 {
+                font-size: 14px;
+                margin: 0;
+                font-weight: 700;
+            }
+
+            span {
+                font-size: 12px;
+                font-weight: 600;
+                color: rgb(129, 129, 129);
+            }
+
+            .check {
+                margin: 0;
+                margin-right: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar d-flex align-items-center w-100 justify-content-between px-3">
+        <img class="logo" src="assets/olper.png.png" alt="">
+        <div>
+            <div class="d-flex align-items-center gap-2">
+                <img width="30px" class="perfil" src="assets/perfil.png.png" alt="">
+                <p>Entrar</p>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 90px;" class="p-4">
+        <div class="d-flex sub-navbar align-items-center justify-content-between">
+            <div class="d-flex gap-5 topics">
+                <h5 data-category="carros" class="selected">Carros</h5>
+                <h5 data-category="motos">Motos</h5>
+            </div>
+            <input type="text" id="search-input" placeholder="Pesquisar...">
+            <div class="most-relevant-text">
+                <p>Mais Relevantes</p>
+            </div>
+        </div>
+        <div class="d-flex">
+            <div class="d-flex w-100 mt-3" style="max-width: 250px;">
+                <div class="w-100 d-flex flex-column gap-2 menu-left">
+                    <div class="section">
+                        <p>Localização:</p>
+                        <input type="text" id="location-input" class='input-text'>
+                    </div>
+                    <div class="d-flex flex-column gap-2">
+                        <p>O que é interessante pra você?</p>
+                        <div class="d-flex align-items-center">
+                            <input type="checkbox" class="check" id="super-preco">
+                            <div class="d-flex flex-column">
+                                <h5>Super Preço</h5>
+                                <span>Oportunidade com o valor abaixo da tabela</span>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <input type="checkbox" class="check" id="car-delivery">
+                            <div class="d-flex flex-column">
+                                <h5>Car Delivery</h5>
+                                <span>Entregamos o carro na sua casa</span>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <input type="checkbox" class="check" id="visao-360">
+                            <div class="d-flex flex-column">
+                                <h5>Visão 360</h5>
+                                <span>Explore cada detalhe do veículo</span>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <input type="checkbox" class="check" id="troca-com-troco">
+                            <div class="d-flex flex-column">
+                                <h5>Troca com Troco</h5>
+                                <span>Seu carro como parte do pagamento</span>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <input type="checkbox" class="check" id="vistoriado">
+                            <div class="d-flex flex-column">
+                                <h5>Vistoriado</h5>
+                                <span>Semi novas com laudo de vistoria</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="w-100 p-0 m-0" onclick="filterProductsCheck()">Filtrar</button>
+                    <button class="w-100 p-0 m-0 btn-clear" onclick="clearFilters()">Limpar filtro</button>
+                </div>
+            </div>
+            <div class="w-100 px-4 py-2 product-tab" id="product-container">
+                <h3 class="py-3" id="product-title">Carros novos em todo Brasil | OperMotors</h3>
+                <div class="products gap-5" id="products-list">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const productsData = {
+            carros: [
+                {
+                    name: "Lamborghini",
+                    price: "R$1.000.000",
+                    img: "assets/lamborghini-huracan.jpg",
+                    city: "São Paulo",
+                    year: "2022",
+                    color: "Preto",
+                    isChange: "Sim",
+                    description: "O Lanburguine é um carro esportivo de luxo com design elegante e tecnologia de ponta. Equipado com um motor potente e interior refinado, é a escolha ideal para quem busca performance e conforto.",
+                    combustivel: "Gasolina",
+                    cambio: "Automático",
+                    superPreço: false,
+                    carDelivery: true,
+                    visao360: true,
+                    trocaComTroco: false,
+                    vistoriado: true
+                },
+                {
+                    name: "Ferrari Testarossa",
+                    price: "R$1.500.000",
+                    img: "assets/320i.jpg",
+                    city: "Rio de Janeiro",
+                    year: "1990",
+                    color: "Vermelho",
+                    description: "A Ferrari Testarossa é um ícone dos anos 90, famosa por seu desempenho impressionante e estilo inconfundível. Seu motor V12 oferece uma experiência de condução emocionante, enquanto seu design atemporal garante que você sempre se destaque.",
+                    isChange: "Não",
+                    combustivel: "Gasolina",
+                    cambio: "Manual",
+                    superPreço: true,
+                    carDelivery: false,
+                    visao360: false,
+                    trocaComTroco: true,
+                    vistoriado: false
+                },
+                {
+                    name: "Lamborghini Aventador",
+                    price: "R$2.000.000",
+                    img: "assets/foto1.jpg",
+                    city: "Belo Horizonte",
+                    year: "2023",
+                    color: "Amarelo",
+                    isChange: "Sim",
+                    combustivel: "Gasolina",
+                    cambio: "Atomático",
+                    description: "O Lamborghini Aventador é a definição de desempenho e luxo. Com um motor V12 de 730 cv e uma aceleração que desafia as leis da física, é um carro feito para impressionar tanto na pista quanto nas ruas. Seu visual agressivo e acabamento interno sofisticado são inigualáveis.",
+                    superPreço: true,
+                    carDelivery: true,
+                    visao360: true,
+                    trocaComTroco: false,
+                    vistoriado: true
+                },
+                {
+                    name: "Dodge Charger",
+                    price: "R$21.000.000",
+                    img: "assets/dodge-charger-.jpg",
+                    city: "São Paulo",
+                    year: "2023",
+                    color: "Amarelo",
+                    isChange: "Sim",
+                    combustivel: "Gasolina",
+                    cambio: "Atomático",
+                    description: "O Lamborghini Aventador é a definição de desempenho e luxo. Com um motor V12 de 730 cv e uma aceleração que desafia as leis da física, é um carro feito para impressionar tanto na pista quanto nas ruas. Seu visual agressivo e acabamento interno sofisticado são inigualáveis.",
+                    superPreço: true,
+                    carDelivery: true,
+                    visao360: true,
+                    trocaComTroco: false,
+                    vistoriado: true
+                },
+                {
+                    name: "Panamera",
+                    price: "R$26.000.000",
+                    img: "assets/panamera.webp",
+                    city: "São Paulo",
+                    year: "2023",
+                    color: "Rosa",
+                    isChange: "Sim",
+                    combustivel: "Gasolina",
+                    cambio: "Atomático",
+                    description: "O Lamborghini Aventador é a definição de desempenho e luxo. Com um motor V12 de 730 cv e uma aceleração que desafia as leis da física, é um carro feito para impressionar tanto na pista quanto nas ruas. Seu visual agressivo e acabamento interno sofisticado são inigualáveis.",
+                    superPreço: true,
+                    carDelivery: true,
+                    visao360: true,
+                    trocaComTroco: false,
+                    vistoriado: true
+                }
+            ],
+            motos: [
+                {
+                    name: "Honda CBR1000RR",
+                    price: "R$70.000",
+                    img: "assets/amb 001.jpg",
+                    city: "Curitiba",
+                    year: "2021",
+                    color: "Azul",
+                    description: "A Honda CBR1000RR é uma moto esportiva com tecnologia avançada e desempenho excepcional. Com um motor de alta cilindrada e um chassi ágil, oferece uma experiência de pilotagem emocionante e controle preciso.",
+                    isChange: "Não",
+                    combustivel: "Gasolina",
+                    cambio: "Manual",
+                    superPreço: false,
+                    carDelivery: false,
+                    visao360: false,
+                    trocaComTroco: false,
+                    vistoriado: true
+                },
+                {
+                    name: "Yamaha R1",
+                    price: "R$75.000",
+                    img: "assets/OIP.jpeg",
+                    city: "Porto Alegre",
+                    year: "2022",
+                    color: "Preto",
+                    description: "A Yamaha R1 é uma superbike que combina potência bruta com tecnologia de ponta. Seu motor de 1.000 cc e sistema de suspensão sofisticado proporcionam uma experiência de pilotagem de alta performance tanto em pista quanto em estradas.",
+                    isChange: "Não",
+                    combustivel: "Gasolina",
+                    cambio: "Manual",
+                    superPreço: false,
+                    carDelivery: false,
+                    visao360: false,
+                    trocaComTroco: false,
+                    vistoriado: false
+                },
+                {
+                    name: "Kawasaki Ninja",
+                    price: "R$80.000",
+                    img: "assets/kawazaki-ninja.webp",
+                    city: "Fortaleza",
+                    year: "2023",
+                    color: "Verde",
+                    description: "A Kawasaki Ninja é uma moto esportiva conhecida por sua performance e design arrojado. Com um motor potente e recursos avançados de controle, é ideal para quem busca adrenalina e precisão na pilotagem.",
+                    isChange: "Sim",
+                    combustivel: "Gasolina",
+                    cambio: "Manual",
+                    superPreço: false,
+                    carDelivery: false,
+                    visao360: false,
+                    trocaComTroco: true,
+                    vistoriado: true
+                }
+            ]
+        }
+
+        function renderProducts(products) {
+            const productContainer = document.getElementById('products-list');
+            productContainer.innerHTML = '';
+            products.forEach(product => {
+                const nameParts = product.name.split(' ');
+
+                let formattedName = nameParts[0];
+                if (nameParts.length > 1) {
+                    formattedName += ` <span style='color: red;'>${nameParts[1]}</span>`;
+                }
+
+                const productDiv = document.createElement('div');
+                productDiv.classList.add('card');
+                productDiv.innerHTML = `
+            <img class='m-0 p-0' src="${product.img}" alt="${product.name}" style="width: 300px;">
+            <div class='d-flex flex-column my-0 p-0'>
+                <div class='d-flex flex-column m-0 my-2'>
+                    <span style='font-size: 20px; font-weight: 700'>${formattedName}</span>
+                    <span style='font-weight: 700; color: rgb(174, 174, 174); max-width: 250px'>${truncateDescription(product.description, 40)}</span>
+                </div>
+                <span style='color: black; font-weight: 500'>${product.price}</span>
+            </div>
+            <button onclick="viewProduct('${product.name}', '${product.description}', '${product.img}', '${product.price}', '${product.city}', '${product.year}', '${product.color}', '${product.isChange}', '${product.combustivel}', '${product.cambio}')">Visualizar</button>
+        `;
+                productContainer.appendChild(productDiv);
+            });
+        }
+
+        function viewProduct(name, description, img, price, city, year, color, isChange, combustivel, cambio) {
+            const url = `product-details.html?name=${encodeURIComponent(name)}&img=${encodeURIComponent(img)}&description=${encodeURIComponent(description)}&price=${encodeURIComponent(price)}&city=${encodeURIComponent(city)}&year=${encodeURIComponent(year)}&color=${encodeURIComponent(color)}&isChange=${encodeURIComponent(isChange)}&combustivel=${encodeURIComponent(combustivel)}&cambio=${encodeURIComponent(cambio)}`;
+            window.location.href = url;
+        }
+
+        function updateTitle() {
+            const title = document.getElementById('product-title');
+            if (selectedCategory === 'carros') {
+                title.textContent = 'Carros novos em todo Brasil | OperMotors';
+            } else if (selectedCategory === 'motos') {
+                title.textContent = 'Motos novas em todo Brasil | OperMotors';
+            }
+        }
+
+        function truncateDescription(description, length) {
+            if (description.length > 20) {
+                return description.substring(0, length) + '...';
+            }
+            return description;
+        }
+
+        function filterProducts() {
+            const searchInput = document.getElementById('search-input').value.toLowerCase();
+
+            let products = productsData[selectedCategory] || [];
+            products = products.filter(product => {
+                return (searchInput === '' || product.name.toLowerCase().includes(searchInput));
+            });
+
+            renderProducts(products);
+        }
+
+        function filterProductsCheck() {
+            const locationInput = document.getElementById('location-input').value.toLowerCase();
+            const selectedFilters = {
+                superPreco: document.getElementById('super-preco').checked,
+                carDelivery: document.getElementById('car-delivery').checked,
+                visao360: document.getElementById('visao-360').checked,
+                trocaComTroco: document.getElementById('troca-com-troco').checked,
+                vistoriado: document.getElementById('vistoriado').checked
+            };
+
+            let products = productsData[selectedCategory] || [];
+            products = products.filter(product => {
+                const matchesLocation = locationInput === '' || product.city.toLowerCase().includes(locationInput);
+                const matchesSuperPreco = !selectedFilters.superPreco || !!product.superPreco;
+                const matchesCarDelivery = !selectedFilters.carDelivery || !!product.carDelivery;
+                const matchesVisao360 = !selectedFilters.visao360 || !!product.visao360;
+                const matchesTrocaComTroco = !selectedFilters.trocaComTroco || !!product.trocaComTroco;
+                const matchesVistoriado = !selectedFilters.vistoriado || !!product.vistoriado;
+
+                return matchesLocation && matchesSuperPreco && matchesCarDelivery && matchesVisao360 && matchesTrocaComTroco && matchesVistoriado;
+            });
+
+            renderProducts(products);
+        }
+
+        function clearFilters() {
+            document.getElementById('location-input').value = '';
+            document.getElementById('super-preco').checked = false;
+            document.getElementById('car-delivery').checked = false;
+            document.getElementById('visao-360').checked = false;
+            document.getElementById('troca-com-troco').checked = false;
+            document.getElementById('vistoriado').checked = false;
+
+            filterProducts();
+        }
+
+        let selectedCategory = 'carros';
+        renderProducts(productsData[selectedCategory]);
+
+        document.querySelectorAll('.topics h5').forEach(h5 => {
+            h5.addEventListener('click', () => {
+                document.querySelectorAll('.topics h5').forEach(h => h.classList.remove('selected'));
+                h5.classList.add('selected');
+                selectedCategory = h5.dataset.category;
+                updateTitle();
+                filterProducts();
+            });
+        });
+
+        document.getElementById('search-input').addEventListener('input', filterProducts);
+    </script>
+</body>
+
+</html>
